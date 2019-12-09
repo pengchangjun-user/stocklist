@@ -1,9 +1,10 @@
 {
   "name": "shareholders_pcj",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "main": "main.js",
   "description": "An analytical tool for Register of Shareholders",
+  "repository": "https://github.com/PengCJun/stocklist.git",
   "author": {
     "name": "pengchangjun",
     "email": "pcj1593@163.com"
@@ -44,6 +45,7 @@
     "extraMetadata": {
       "main": "./build/main.js"
     },
+    "publish": ["github"],
     "mac": {
       "category": "public.app-category.productivity",
       "artifactName": "${productName}-${version}-${arch}.${ext}"

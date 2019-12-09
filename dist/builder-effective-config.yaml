@@ -1,0 +1,45 @@
+directories:
+  output: dist
+  buildResources: assets
+appId: RegisterShareholders_dengta
+productName: 股东名册
+copyright: 'Copyright © 2019 ${author}'
+files:
+  - filter:
+      - build/**/*
+      - node_modules/**/*
+      - package.json
+      - main.js
+extraMetadata:
+  main: ./build/main.js
+mac:
+  category: public.app-category.productivity
+  artifactName: '${productName}-${version}-${arch}.${ext}'
+dmg:
+  background: assets/appdmg.png
+  icon: assets/icon.icns
+  iconSize: 100
+  contents:
+    - x: 380
+      'y': 280
+      type: link
+      path: /Applications
+    - x: 110
+      'y': 280
+      type: file
+  window:
+    width: 500
+    height: 500
+win:
+  target:
+    - msi
+    - nsis
+  icon: assets/icon.ico
+  artifactName: '${productName}-Setup-${version}.${ext}'
+  publisherName: Changjun Peng
+nsis:
+  allowToChangeInstallationDirectory: true
+  oneClick: false
+  perMachine: false
+extends: null
+electronVersion: 6.1.4

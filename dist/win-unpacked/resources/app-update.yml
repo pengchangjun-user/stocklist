@@ -1,0 +1,6 @@
+owner: PengCJun
+repo: stocklist
+provider: github
+updaterCacheDirName: shareholders_pcj-updater
+publisherName:
+  - Changjun Peng
