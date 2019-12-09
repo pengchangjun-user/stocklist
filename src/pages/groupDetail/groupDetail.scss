@@ -1,0 +1,39 @@
+.group-detail {
+
+    padding: 0 20px;
+    margin-bottom: 30px;
+
+    .ant-table-thead>tr>th,
+    .ant-table-tbody>tr>td {
+        padding: 10px;
+    }
+
+    .return-btn {
+        height: 47px;
+        line-height: 47px;
+        border-bottom: 1px solid #F1F1F3;
+        cursor: pointer;
+        a {
+            color: rgba(0,0,0, 0.65);
+            &:hover {
+                color: #3B86FF;
+            }
+        }
+    }
+
+    .detail-title {
+        margin-top: 15px;
+        margin-bottom: 22px;
+        font-weight: bold;
+        color: rgba(0,0,0, 0.65);
+    }
+
+    .column {
+        display: flex;
+        padding-left: 30px;
+        margin-bottom: 30px;
+        .col {
+            width: 300px;
+        }
+    }
+}

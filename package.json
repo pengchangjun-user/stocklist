@@ -1,0 +1,127 @@
+{
+  "name": "shareholders_pcj",
+  "version": "1.0.0",
+  "private": true,
+  "main": "main.js",
+  "description": "An analytical tool for Register of Shareholders",
+  "author": {
+    "name": "pengchangjun",
+    "email": "pcj1593@163.com"
+  },
+  "dependencies": {
+    "electron-store": "^5.1.0",
+    "getmac": "^1.5.0",
+    "speakeasy": "^2.0.0",
+    "xlsx": "^0.15.2"
+  },
+  "scripts": {
+    "build": "react-app-rewired build",
+    "buildMain": "webpack",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject",
+    "start:react": "cross-env BROWSER=none react-app-rewired start",
+    "start:electron": "wait-on http://localhost:3000 && electron .",
+    "start": "concurrently \"npm run start:react\" \"npm run start:electron\"",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "prepack": "npm run build && npm run buildMain",
+    "predist": "npm run build && npm run buildMain"
+  },
+  "homepage": "./",
+  "build": {
+    "appId": "RegisterShareholders_dengta",
+    "productName": "股东名册",
+    "copyright": "Copyright © 2019 ${author}",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json",
+      "main.js"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "extraMetadata": {
+      "main": "./build/main.js"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "dmg": {
+      "background": "assets/appdmg.png",
+      "icon": "assets/icon.icns",
+      "iconSize": 100,
+      "contents": [
+        {
+          "x": 380,
+          "y": 280,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 110,
+          "y": 280,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "width": 500,
+        "height": 500
+      }
+    },
+    "win": {
+      "target": [
+        "msi",
+        "nsis"
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "${productName}-Setup-${version}.${ext}",
+      "publisherName": "Changjun Peng"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "perMachine": false
+    },
+    "extends": null
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "antd": "^3.25.2",
+    "babel-plugin-import": "^1.12.2",
+    "concurrently": "^4.1.2",
+    "cross-env": "^5.2.1",
+    "customize-cra": "^0.6.1",
+    "docx": "^5.0.0-rc7",
+    "echarts": "^4.5.0",
+    "echarts-for-react": "^2.0.15-beta.1",
+    "electron": "^6.1.4",
+    "electron-builder": "^21.2.0",
+    "electron-debug": "^3.0.1",
+    "node-sass": "^4.13.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
+    "react-app-rewired": "^2.1.5",
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.1.1",
+    "wait-on": "^3.3.0",
+    "webpack-cli": "^3.3.10",
+    "electron-is-dev": "^1.1.0"
+  }
+}

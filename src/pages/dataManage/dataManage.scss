@@ -1,0 +1,58 @@
+
+.data-manage {
+    padding: 0 24px;
+}
+
+.upload {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 320px;
+
+    .left {
+        flex: 1;
+        text-align: right;
+        margin-right: 180px;
+        .upload-text {
+            text-align: center;
+            border-radius: 8px;
+            width: 176px;
+            height: 176px;
+            border: 1px dotted #0000003F;
+            cursor: pointer;
+            line-height: 176px;
+            span {
+                color: #3B86FF;
+                font-size: 16px;
+                padding-left: 4px;
+            }
+        }
+    }
+    .right {
+        flex:1;
+        margin-left: 180px;
+
+        .instructions {
+            font-weight: bold;
+        }
+    }
+}
+
+.divider-line {
+    border-bottom: 1px solid #F1F1F3;
+    height: 0;
+    width: 100%;
+}
+
+.import-title {
+    text-align: left;
+    margin-top: 34px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+
+.import-file {
+
+}

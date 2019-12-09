@@ -1,0 +1,23 @@
+.stockholders {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-color: #F0F0F7;
+}
+
+.stockholders-content {
+	margin: 24px;
+	height: calc(100vh - 112px);
+}
+
+.content-wrapper {
+	height: 100%;
+    width: 100%;
+	background-color: #fff;
+	overflow: auto;
+}
+
+::-webkit-input-placeholder {
+	font-size: 14px;
+}
+

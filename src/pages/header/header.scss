@@ -1,0 +1,74 @@
+.header {
+    display: flex;
+    height: 64px;
+    justify-content: center;
+    align-items: center;
+    -webkit-app-region: drag;
+    background-color: #fff;
+    
+    div {
+        flex: 1;
+    }
+}
+
+/* .header >div {
+    flex: 1;
+} */
+
+.title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.operate {
+    text-align: right;
+    padding-right: 25px;
+}
+
+
+.shrink, .shrink:hover, .fold, .fold:hover, .unfold, .unfold:hover, .close, .close:hover {
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+}
+
+.shrink {
+    background:url('../../images/shrink.png');
+}
+.shrink:hover {
+    background:url('../../images/shrink_click.png');
+}
+
+.fold {
+    background:url('../../images/fold.png');
+}
+.fold:hover {
+    background:url('../../images/fold_click.png');
+}
+
+.unfold {
+    background:url('../../images/fold_1.png');
+}
+.unfold:hover {
+    background:url('../../images/fold_1_click.png');
+}
+
+.close {
+    background:url('../../images/close.png');
+}
+.close:hover {
+    background:url('../../images/close_click.png');
+}
+
+
+.shrink, .fold, .unfold, .close {
+    float: right;
+    -webkit-app-region: no-drag; 
+}
+
+.shrink, .fold, .unfold {
+    margin-right: 6px;
+}
+
+

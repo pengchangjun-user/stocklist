@@ -1,0 +1,56 @@
+
+.holder-detail {
+    padding: 0 20px;
+
+    .ant-table-thead>tr>th,
+    .ant-table-tbody>tr>td {
+        padding: 10px;
+    }
+
+    .return-btn {
+        height: 47px;
+        line-height: 47px;
+        border-bottom: 1px solid #F1F1F3;
+        cursor: pointer;
+        a {
+            color: rgba(0,0,0, 0.65);
+            &:hover {
+                color: #3B86FF;
+            }
+        }
+    }
+
+    .detail-title {
+        margin-top: 15px;
+        font-weight: bold;
+        color: rgba(0,0,0, 0.65);
+    }
+
+    .name-layout {
+        padding-left: 30px;
+        margin-top: 10px;
+        .name {
+            font-weight: bold;
+            color: rgba(0,0,0, 0.65);
+            margin-right: 5px;
+        }
+    }
+
+    .base-info-layout {
+        display: flex;
+        padding-left: 30px;
+        margin-top: 12px;
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            width: 320px;
+
+            .col {
+                margin-bottom: 8px;
+                font-size: 13px;
+                color: rgba(0, 0, 0, 0.65);
+            }
+        }
+    }
+}

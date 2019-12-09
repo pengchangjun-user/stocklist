@@ -1,0 +1,79 @@
+
+.row {
+    margin-bottom: 16px;
+}
+
+.holderlist .input-select-style {
+    width: calc(100% - 79px);
+    height: 40px;
+}
+
+.holderlist .input-select-head {
+    width: 79px;
+    height: 40px;
+    text-align: center;
+    background: #fafafa;
+    padding: 7px 0 0 0;
+    border-left: 1px solid #d9d9d9;
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.gutter-row .input-select-style .ant-select-selection__rendered {
+    line-height: 40px;
+}
+
+.gutter-row .input-group-style .ant-select-selection--single {
+    height: 40px;
+}
+
+.org-holderlist .ant-table-thead>tr>th,
+.org-holderlist .ant-table-tbody>tr>td {
+    padding: 10px;
+}
+
+.org-holderlist .ant-table-thead > tr > th:last-child, .org-holderlist .ant-table-tbody > tr > td:last-child {
+    border-right: 1px solid #fff; 
+}
+
+
+.org-holderlist {
+    margin-top: 16px;
+
+    .period-select {
+        display: flex;
+        justify-content: space-between;
+        height: 40px;
+        margin-top: 12px;
+    }
+
+    .tag {
+        margin: 16px 0;
+    }
+
+    .ant-tag {
+        cursor: pointer;
+    }
+
+    .holderlist-table {
+        width: 100%;
+        height: 510px;
+        overflow: auto;
+
+        .fixed-table-head {
+            position: fixed;
+            top: 407px;
+            left: 40px;
+            z-index: 99;
+            width: calc(100% - 88px);
+            height: 42px;
+            line-height: 42px;
+            background-color: #FAFAFA;
+
+            div {
+                display: inline-block;
+                text-align: center;
+            }
+        }
+    }
+}
