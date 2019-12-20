@@ -1,23 +1,37 @@
 const XLSX = window.require("xlsx")
 export const holderTypes = {
-    '1000': '自然人',
-    '1100': '国有自然人',
-    '2000': '非自然人',
-    '2100': '国有非自然人',
-    '2010': '非 RQFII 的 QFII ',
-    '2110': '国有非 RQFII 的 QFII',
-    '2210': '境外非 RQFII 的 QFII',
-    '2020': 'RQFII',
-    '2120': '国有 RQFII',
-    '2220': '境外RQFII',
-    '2001': '证券投资基金 ',
-    '2101': '国有证券投资基金',
-    '2201': '境外证券投资基金',
-    '2002': '私募投资基金',
-    '2102': '国有私募投资基金',
-    '2202': '境外私募投资基金',
-    '机构': '机构',
-    '个人': '个人'
+    // 这是第一版的数据
+    // '1000': '自然人',
+    // '1100': '国有自然人',
+    // '2000': '非自然人',
+    // '2100': '国有非自然人',
+    // '2010': '非 RQFII 的 QFII ',
+    // '2110': '国有非 RQFII 的 QFII',
+    // '2210': '境外非 RQFII 的 QFII',
+    // '2020': 'RQFII',
+    // '2120': '国有 RQFII',
+    // '2220': '境外RQFII',
+    // '2001': '证券投资基金 ',
+    // '2101': '国有证券投资基金',
+    // '2201': '境外证券投资基金',
+    // '2002': '私募投资基金',
+    // '2102': '国有私募投资基金',
+    // '2202': '境外私募投资基金',
+    // '机构': '机构',
+    // '个人': '个人',
+    // 这是第二版的数据
+    '1001': '牛散',
+    // 如果在牛散和个人里面找不到，都归为个人这一类中
+    '1000': '个人',
+    '2001': '社保基金',
+    '2002': '证金公司',
+    '2003': 'QFII',
+    '2004': '一般机构法人',
+    '2005': '信托产品',
+    '2006': '证券投资基金',
+    '2007': '基金',
+    // 如果以上的机构都找不到，都归为机构这一类中
+    '2000': '机构'
 }
 
 export const holderAddress = {
@@ -171,6 +185,7 @@ export function sortByAmount(cur, pre) {
         return 0;
     }
 }
+
 
 /**
  * 判断股东类型
@@ -363,12 +378,14 @@ function sheet2blob(sheetArr) {
     var wbout = XLSX.write(workbook, wopts);
     var blob = new Blob([s2ab(wbout)], {
         type: "application/octet-stream"
-    }); 
+    });
     // 字符串转ArrayBuffer
     function s2ab(s) {
         var buf = new ArrayBuffer(s.length);
         var view = new Uint8Array(buf);
-        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+        for (var i = 0; i != s.length; ++i) {
+            view[i] = s.charCodeAt(i) & 0xFF;
+        }
         return buf;
     }
     return blob;

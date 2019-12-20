@@ -17,6 +17,8 @@ const DATE_DIR = "\\data\\"; // 数据根目录
 const HOLDER_DIR = "holder\\"; // t1 t2 t3文件目录
 const CREDIT_DIR = "credit\\"; // t5文件目录
 const GROUP = "group\\" //分组数据
+const CHARACTOR = "charactor\\"
+
 
 
 /**
@@ -232,7 +234,7 @@ export function getCreditFilePath(period, isResult, not3 = false) {
 }
 
 /**
- * 获取分组数据目录不存在则创建
+ * 获取分组路径目录不存在则创建
  * return 目录
  */
 function getGroupDir() {
@@ -244,9 +246,31 @@ function getGroupDir() {
     return groupDirPath;
 }
 
+// /**
+//  * 获取股东性质路径目录不存在则创建
+//  */
+// function getCharactorDir() {
+//     // 获取charactor目录
+//     let charactorDirPath = getDataDir() + CHARACTOR;
+//     if (!fs.existsSync(charactorDirPath)) {
+//         fs.mkdirSync(charactorDirPath);
+//     }
+//     return charactorDirPath;
+// }
+
+// /**
+//  * 写入股东性质数据
+//  * @param result 要写入的JSON
+//  * return 文件路径或解析后的json
+//  */
+// export function setCharactorFilePath(result) {
+//     let path = getCharactorDir();
+//     fs.writeFileSync(path + 'charactor.json', JSON.stringify(result));
+//     return null;
+// }
+
 /**
  * 写入分组数据
- * @param period 指定要某一期的文件，如20181031
  * @param result 要写入的JSON
  * return 文件路径或解析后的json
  */

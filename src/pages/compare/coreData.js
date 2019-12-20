@@ -7,8 +7,12 @@ import { getRatio, getAverage, formatNumber } from "../../utils/common"
 import ReactEcharts from 'echarts-for-react'
 import appGlobal from '../../global/global'
 import { word } from "../word/word"
+
+console.log("appGlobal-cor", appGlobal)
+
 const { remote } = window.require('electron')
 const dialog = remote.dialog
+const path = window.require("path")
 
 notification.config({
     placement: 'topRight',
@@ -17,7 +21,8 @@ notification.config({
 })
 
 message.config({
-    top: 100
+    top: 30,
+    duration: 2
 })
 
 const CoreData = () => {
@@ -117,7 +122,7 @@ const CoreData = () => {
             dataIndex: 'ratioChange',
             key: 'ratioChange',
             align: "center",
-            render: text => <span style={{color: text > 0 ? "#FF6565" : (text < 0 ? "#1EC162" : "")}}>{text}</span>
+            render: text => <span style={{color: text > 0 ? "#FF6565" : (text < 0 ? "#1EC162" : "")}}>{text > 0 ? "+" : ""}{text}</span>
         }
     ]
     // 股东持股数据表格
@@ -141,7 +146,7 @@ const CoreData = () => {
             dataIndex: 'ratioChange',
             key: 'ratioChange',
             align: "center",
-            render: text => <span style={{color: text > 0 ? "#FF6565" : (text < 0 ? "#1EC162" : "")}}>{text}</span>
+            render: text => <span style={{color: text > 0 ? "#FF6565" : (text < 0 ? "#1EC162" : "")}}>{text > 0 ? "+" : ""}{text}</span>
         }
     ]
 
@@ -447,7 +452,6 @@ const CoreData = () => {
                 })
             }
         }
-        console.log("compareAccountTable", compareAccountTable)
         setCompareAccountTable([...compareAccountTable])
     }
 
@@ -517,23 +521,22 @@ const CoreData = () => {
                 let currentItem = compareAmountTable[j]
                 let preItem = compareAmountTable[j + 1]
                 // 户均较上期变化
-                ratioChangeAllAverage = getRatio(currentItem.data[0].amountNumber - preItem.data[0].amountNumber, preItem.data[0].amountNumber, false)
+                ratioChangeAllAverage = getRatio(currentItem.data[0].amountNumberCopy - preItem.data[0].amountNumberCopy, preItem.data[0].amountNumberCopy, false)
                 currentItem.data[0].ratioChange = ratioChangeAllAverage
                 // 机构较上期变化
-                ratioChangeOrg = getRatio(currentItem.data[1].amountNumber - preItem.data[1].amountNumber, preItem.data[1].amountNumber, false)
+                ratioChangeOrg = getRatio(currentItem.data[1].amountNumberCopy - preItem.data[1].amountNumberCopy, preItem.data[1].amountNumberCopy, false)
                 currentItem.data[1].ratioChange = ratioChangeOrg
                 // 机构户均较上期变化
-                ratioChangeOrgAverage = getRatio(currentItem.data[2].amountNumber - preItem.data[2].amountNumber, preItem.data[2].amountNumber, false)
+                ratioChangeOrgAverage = getRatio(currentItem.data[2].amountNumberCopy - preItem.data[2].amountNumberCopy, preItem.data[2].amountNumberCopy, false)
                 currentItem.data[2].ratioChange = ratioChangeOrgAverage
                 // 个人较上期变化
-                ratioChangePersonal = getRatio(currentItem.data[3].amountNumber - preItem.data[3].amountNumber, preItem.data[3].amountNumber, false)
+                ratioChangePersonal = getRatio(currentItem.data[3].amountNumberCopy - preItem.data[3].amountNumberCopy, preItem.data[3].amountNumberCopy, false)
                 currentItem.data[3].ratioChange = ratioChangePersonal
                 // 个人户均较上期变化
-                ratioChangePersonalAverage = getRatio(currentItem.data[4].amountNumber - preItem.data[4].amountNumber, preItem.data[4].amountNumber, false)
+                ratioChangePersonalAverage = getRatio(currentItem.data[4].amountNumberCopy - preItem.data[4].amountNumberCopy, preItem.data[4].amountNumberCopy, false)
                 currentItem.data[4].ratioChange = ratioChangePersonalAverage
             }
         }
-        console.log("compareAmountTable", compareAmountTable)
         setCompareAmountTable([...compareAmountTable])
     }
 
@@ -548,18 +551,18 @@ const CoreData = () => {
         let preCreditData = getCreditFilePath(prePeriod, true);        // 上期信用数据
         let curHolderData = getHolderFilePath(curPeriod, true);        // 当期普通数据
         let curCreditData = getCreditFilePath(curPeriod, true);        // 当期信用数据
-        if (!curCreditData) {
-            message.warn(`未查询到${curPeriod}期信用账户数据`)
-            return
-        }
+        // if (!curCreditData) {
+        //     message.warn(`未查询到${curPeriod}期信用账户数据`)
+        //     return
+        // }
         if (!curHolderData) {
             message.warn(`未查询到${curPeriod}期普通账户数据`)
             return
         }
-        if (!preCreditData) {
-            message.warn(`未查询到${prePeriod}期信用账户数据`)
-            return
-        }
+        // if (!preCreditData) {
+        //     message.warn(`未查询到${prePeriod}期信用账户数据`)
+        //     return
+        // }
         if (!preHolderData) {
             message.warn(`未查询到${prePeriod}期普通账户数据`)
             return
@@ -598,7 +601,6 @@ const CoreData = () => {
                 accountNumberData[item]= getHolderFilePath(item, true)
             }
             setAccountNumberData({...accountNumberData})
-            console.log("accountNumberData", accountNumberData)
             // 默认展示最新两期的数据
             let selectPeriod = allPeriodArrCopy.length === 1 ? [allPeriodArrCopy[0]] : [allPeriodArrCopy[0], allPeriodArrCopy[1]]
             setSelectPeriod([...selectPeriod])

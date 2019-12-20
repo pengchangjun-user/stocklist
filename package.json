@@ -1,12 +1,12 @@
 {
-  "name": "shareholders_pcj",
+  "name": "shareholders-second-dengta",
   "version": "1.0.1",
   "private": true,
   "main": "main.js",
   "description": "An analytical tool for Register of Shareholders",
   "repository": "https://github.com/PengCJun/stocklist.git",
   "author": {
-    "name": "pengchangjun",
+    "name": "PengCJun",
     "email": "pcj1593@163.com"
   },
   "dependencies": {
@@ -25,6 +25,8 @@
     "start": "concurrently \"npm run start:react\" \"npm run start:electron\"",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
+    "release": "cross-env GH_TOKEN=31e69e45184e00fd57b32d718aa403701d695080 electron-builder",
+    "prerelease": "npm run build && npm run buildMain",
     "prepack": "npm run build && npm run buildMain",
     "predist": "npm run build && npm run buildMain"
   },
@@ -45,7 +47,10 @@
     "extraMetadata": {
       "main": "./build/main.js"
     },
-    "publish": ["github"],
+    "publish": [
+      "github"
+    ],
+    "extraResources": ["./public/**/*"],
     "mac": {
       "category": "public.app-category.productivity",
       "artifactName": "${productName}-${version}-${arch}.${ext}"
@@ -78,8 +83,7 @@
         "nsis"
       ],
       "icon": "assets/icon.ico",
-      "artifactName": "${productName}-Setup-${version}.${ext}",
-      "publisherName": "Changjun Peng"
+      "artifactName": "${productName}-Setup-${version}.${ext}"
     },
     "nsis": {
       "allowToChangeInstallationDirectory": true,
@@ -115,6 +119,8 @@
     "electron": "^6.1.4",
     "electron-builder": "^21.2.0",
     "electron-debug": "^3.0.1",
+    "electron-is-dev": "^1.1.0",
+    "electron-updater": "^4.2.0",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
@@ -123,7 +129,6 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.1.1",
     "wait-on": "^3.3.0",
-    "webpack-cli": "^3.3.10",
-    "electron-is-dev": "^1.1.0"
+    "webpack-cli": "^3.3.10"
   }
 }

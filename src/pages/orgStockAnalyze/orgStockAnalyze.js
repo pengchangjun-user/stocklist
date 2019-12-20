@@ -40,7 +40,7 @@ const OrgStockAnalyze = () => {
 
                 <Button type={ "holderlist" === current ? "primary" : "default" } style={groupBtn}  onClick={() => clickBtn('holderlist')}>股东列表</Button>
 
-                {/* <Button type={ "managerType" === current ? "primary" : "default" } style={groupBtn}  onClick={() => clickBtn('managerType')}>按管理人分类</Button> */}
+                <Button type={ "managerType" === current ? "primary" : "default" } style={groupBtn}  onClick={() => clickBtn('managerType')}>按管理人分类</Button>
             </div>
             {renderContent()}
         </div>

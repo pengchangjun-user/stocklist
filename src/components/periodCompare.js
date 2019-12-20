@@ -48,6 +48,7 @@ const PeriodCompare = ({ comparePeriod, showExport, showAddGroup, onOpenModal, o
                     showExportReport && 
                         <Button className="export_excel_btn" onClick={onExportReport}>
                             下载最新两期对比分析报告
+                            {/* 下载对比分析报告 */}
                         </Button>
                 }
             </div>

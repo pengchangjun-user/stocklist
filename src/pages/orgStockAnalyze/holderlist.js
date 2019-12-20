@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import "./holderlist.scss"
-import { Row, Col, Input, Select, Button, Tooltip, Table, Tag, Icon, message, Dropdown, Menu } from "antd"
+import { Row, Col, Input, Select, Button, Table, Tag, Icon, Dropdown, Menu } from "antd"
 import { holderTypes } from "../../utils/common"
 import { getAllPeriod, getAllData, getGroupFilePath } from "../../utils/fileParse"
 import { sortHolderAmount, formatNumber, getHolderByType, onExportToExcel } from "../../utils/common"
@@ -59,18 +59,13 @@ const Holderlist = () => {
     // 引入公共hooks -- 当点击enter键盘的时候触发
     const enterPressed = useKeyPress(13)
     
-    const columns = [{
-            title: '序号',
-            dataIndex: 'index',
-            align: 'center',
-            key: 'index',
-            width: "8%"
-        }, {
+    const columns = [
+        {
             title: '股东名称',
             dataIndex: 'name',
             key: 'name',
             ellipsis: true,
-            width: "27%",
+            width: "33%",
             render: (text, record, index) => {
                 var data = { name: text, period: periodValue, idNumber: record.idNumber, type: 2, holderType: record.nature }
                 var path = {
@@ -86,12 +81,12 @@ const Holderlist = () => {
             align: 'center',
             dataIndex: 'nature',
             key: 'nature',
-            width: "13%",
+            width: "15%",
             render: text => {
                 return getHolderByType(text)
             }
         }, {
-            title: '机构持股数量（股）',
+            title: '机构持股数量(股)',
             align: 'center',
             dataIndex: 'amount',
             key: 'amount',
@@ -100,7 +95,7 @@ const Holderlist = () => {
                 return formatNumber(text)
             }
         }, {
-            title: '机构持股比例（%）',
+            title: '机构持股比例(%)',
             align: 'center',
             dataIndex: 'ratio',
             width: "13%",
@@ -210,6 +205,10 @@ const Holderlist = () => {
         if (allData) {
             for (let key in allData) {
                 if (allData.hasOwnProperty(key)) {
+                    // 先把机构股东筛选出来
+                    allData[key] = allData[key].sort(sortHolderAmount).filter(item => {
+                        return String(item.holder_type).charAt(0) === '2'
+                    })
                     // 筛选股东名称
                     if (holderNameValueCopy) {
                         allData[key] = allData[key].filter(item => {
@@ -234,13 +233,13 @@ const Holderlist = () => {
                             item.holder_amount = item.file_type === "t3" ? item.holder_amount : (item.holder_amount ? item.holder_amount + item.credit_amount : item.credit_amount)
                         }
                     })
-                    // 倒序
-                    let arr = allData[key].sort(sortHolderAmount)
-                    // 把机构股东选出来
-                    arr = arr.filter(item => {
-                        return String(item.holder_type).charAt(0) == '2'
-                    })
-                    allData[key] = arr
+                    // // 倒序
+                    // let arr = allData[key].sort(sortHolderAmount)
+                    // // 把机构股东选出来
+                    // arr = arr.filter(item => {
+                    //     return String(item.holder_type).charAt(0) === '2'
+                    // })
+                    // allData[key] = arr
                 }
             }
             // 把当期和前一期的所有人的id放在数组中，来比对，找出新增和退出的人员信息
@@ -477,9 +476,8 @@ const Holderlist = () => {
             </div>
             <div className="holderlist-table">
                 <div className="fixed-table-head">
-                    <div style={{width: "8%"}}>序号</div>
-                    <div style={{width: "27%", textAlign: "left", paddingLeft: "10px"}}>股东名称</div>
-                    <div style={{width: "13%"}}>股东性质</div>
+                    <div style={{width: "33%", textAlign: "left", paddingLeft: "10px"}}>股东名称</div>
+                    <div style={{width: "15%"}}>股东性质</div>
                     <div style={{width: "13%"}}>机构持股数量(股)</div>
                     <div style={{width: "13%"}}>机构持股比例(%)</div>
                     <div style={{width: "13%"}}>较上期持股变动数(股)</div>

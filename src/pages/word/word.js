@@ -857,7 +857,7 @@ export const word = (path, callback, data, preData, creditData, preCreditData) =
             } else {
                 orgHolder = []
             }
-            if (creditData) {
+            if (JSON.stringify(creditData) !== '{}') {
                 orgCredit = creditData.recorders.filter(item => {
                     return item.holder_type == '机构';
                 })
@@ -1761,8 +1761,6 @@ export const word = (path, callback, data, preData, creditData, preCreditData) =
             }
             return arr
         }
-
-
     }
 
     const documentCreator = new DocumentCreator();

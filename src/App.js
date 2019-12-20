@@ -5,14 +5,16 @@ import HolderDetail from "./pages/holderDetail/holderDetail"
 import NatureDetail from "./pages/natureDetail/natureDetail"
 import GroupDetail from "./pages/groupDetail/groupDetail"
 import './App.css'
-import { Modal, Button, Input, Icon } from 'antd'
+import { Modal, Button, Input, Icon, Progress, message } from 'antd'
 import Header from "./pages/header/header"
 
+const path = window.require("path")
 const { ipcRenderer } = window.require("electron")
 const Store = window.require('electron-store')
 const store = new Store()
 const speakeasy = window.require("speakeasy")
 const getmac = window.require("getmac")
+const { confirm } = Modal
 
 
 function App() {
@@ -21,7 +23,61 @@ function App() {
     const [ machineCodeVisible, setMachineCodeVisible] = useState(false)
     const [ identifyCode, setIdentifyCode] = useState("")
     const [ machineCode, setMachineCode] = useState("")
-	const [ authorizeFlag, setAuthorizeFlag] = useState(false)
+    const [ authorizeFlag, setAuthorizeFlag] = useState(false)
+    const [ downLoadPercent, setDownLoadPercent ] = useState(0)
+    const [ progressVisible, setProgressVisible ] = useState(false)
+    const [ isDownload, setIsDownload ] = useState(true)
+
+    const showConfirm = () => {
+        confirm({
+            title: '有新的版本',
+            content: (
+                    <div>
+                        <p>发现新版本，是否现在更新?</p>
+                        <p>提示：请尽量选择网速较好的情况下载更新，防止文件较大而导致下载出错;</p>
+                    </div>
+                ),
+            okText: "是",
+            cancelText: "否",
+            maskClosable: false,
+            onOk() {
+                ipcRenderer.send("canDownload")
+                setProgressVisible(true)
+                ipcRenderer.on("progress", (e, arg) => {
+                    console.log("percent", arg.percent)
+                    setDownLoadPercent(parseInt(arg.percent))
+                })
+                ipcRenderer.on("finished-download", (e, arg) => {
+                    console.log("是否下载完成")
+                    setDownLoadPercent(100)
+                    setIsDownload(false)
+                })
+                ipcRenderer.on("has-error", (e, arg) => {
+                    showError()
+                })
+            },
+            onCancel() {
+                let mac = store.get("mac")
+                if (mac) {
+                    setIdentifyCodeVisible(true)
+                    setMachineCode(mac)
+                } else {
+                    setCodeTipVisible(true)
+                }
+            },
+        })
+    }
+
+    const showError = () => {
+        Modal.error({
+            title: '下载更新失败',
+            content: '请关闭应用重新打开，并再次下载更新',
+            okText: "知道了",
+            onOk() {
+                setProgressVisible(false)
+            }
+        })
+    }
 	
 	const identifyCodeMakesure = () => {
         let code = identifyCode.substring(0, 6)
@@ -51,13 +107,22 @@ function App() {
 
     // 一进来就读取electron-store的mac地址
     useEffect(() => {
-        let mac = store.get("mac")
-        if (mac) {
-            setIdentifyCodeVisible(true)
-            setMachineCode(mac)
-        } else {
-            setCodeTipVisible(true)
-        }
+        ipcRenderer.on('hasNewVersion', (e, arg) => {
+            if (arg) {
+                // 如果为1，则表示有新版本， 弹出弹框
+                console.log("是否有版本更新", arg)
+                showConfirm()
+            } else {
+                // 没有新版本
+                let mac = store.get("mac")
+                if (mac) {
+                    setIdentifyCodeVisible(true)
+                    setMachineCode(mac)
+                } else {
+                    setCodeTipVisible(true)
+                }
+            }
+        })
     }, [])
 
 	return (
@@ -140,6 +205,30 @@ function App() {
                 <div className="code-btn">
                     <Button type="primary" onClick={changeModal}>好的，去董秘-设备管理页填入</Button>
                 </div>
+            </Modal>
+
+            <Modal
+                visible={progressVisible}
+                footer = {null}
+                width = {384}
+                closable = {false}
+            >
+                {
+                    isDownload ? 
+                        <div>
+                            <h3 style={{textAlign: "center", margin: "5px 0 10px 0"}}>正在下载</h3>
+                            <Progress percent={downLoadPercent} />
+                            <div style={{marginTop: "10px"}}></div>
+                        </div>
+                        :
+                        <div>
+                            <h3 style={{textAlign: "center", margin: "5px 0 10px 0"}}>安装更新</h3>
+                            <div>更新下载完毕，点击更新应用将重启并进行安装</div>
+                            <div style={{textAlign: "right", paddingRight: "10px", marginTop: "15px"}}>
+                                <Button onClick={() => {ipcRenderer.send('canUpdate')}}>更新</Button>
+                            </div>
+                        </div>
+                }
             </Modal>
 		</div>
 	);

@@ -51,17 +51,12 @@ const Holderlist = () => {
     // 引入公共hooks -- 当点击enter键盘的时候触发
     const enterPressed = useKeyPress(13)
 
-    const columns = [{
-            title: '序号',
-            dataIndex: 'index',
-            key: 'index',
-            align: 'center',
-            width: "8%"
-        }, {
+    const columns = [
+        {
             title: '股东名称',
             dataIndex: 'name',
             key: 'name',
-            width: "27%",
+            width: "33%",
             ellipsis: true,
             render: (text, record, index) => {
                 var data = { name: text, period: periodValue, idNumber: record.idNumber, type: 2, holderType: record.nature }
@@ -78,7 +73,7 @@ const Holderlist = () => {
             align: 'center',
             dataIndex: 'nature',
             key: 'nature',
-            width: "13%",
+            width: "15%",
             render: text => {
                 return getHolderByType(text)
             }
@@ -432,9 +427,8 @@ const Holderlist = () => {
             </div>
             <div className="holderlist-table">
                 <div className="fixed-table-head">
-                    <div style={{width: "8%"}}>序号</div>
-                    <div style={{width: "27%", textAlign: "left", paddingLeft: "10px"}}>股东名称</div>
-                    <div style={{width: "13%"}}>股东性质</div>
+                    <div style={{width: "33%", textAlign: "left", paddingLeft: "10px"}}>股东名称</div>
+                    <div style={{width: "15%"}}>股东性质</div>
                     <div style={{width: "13%"}}>信用持股数量(股)</div>
                     <div style={{width: "13%"}}>信用持股比例(%)</div>
                     <div style={{width: "13%"}}>较上期持股变动数(股)</div>

@@ -6,6 +6,10 @@ class AppGlobal {
         this.currentChildKey = '';
         // 导入文件的期数
         this.globalAllPeriod = [];
+        // 股东性质的基础数据，app一打开的时候就去读取这个文件
+        this.characterObj = {};
+        // 只读取一次
+        this.readCharacterFlag = 0;
     }
 }
 const appGlobal = new AppGlobal()

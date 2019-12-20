@@ -413,7 +413,7 @@ const Concentration = (props) => {
 		obj.amount += dItem.holder_amount
 		obj.ratio += parseFloat(parseFloat(dItem.holder_ratio).toFixed(2))
 		// 刷选出机构和个人
-		if (String(dItem.holder_type).charAt(0) === '2' || String(dItem.holder_type) === "机构") {
+		if (String(dItem.holder_type).charAt(0) === '2') {
 			obj.childrenArr[0].amount += dItem.holder_amount
 			obj.childrenArr[0].ratio += parseFloat(parseFloat(dItem.holder_ratio).toFixed(2))
 			obj.childrenArr[0].number ++
@@ -480,7 +480,6 @@ const Concentration = (props) => {
 			// 获取控股股东
 			let controlHolder = JSON.parse(getControlFilePath(allPeriodArrCopy[0]))
 			if (Array.isArray(controlHolder) && controlHolder.length > 0) {
-				console.log("controlHolder", controlHolder)
 				idNumbersCopy = controlHolder
 				setIdNumbers(controlHolder)
 			} else {

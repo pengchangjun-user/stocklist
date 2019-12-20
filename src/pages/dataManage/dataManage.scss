@@ -1,6 +1,11 @@
 
 .data-manage {
     padding: 0 24px;
+    .ant-progress-circle.ant-progress-status-success .ant-progress-text {
+        color: #000000;
+    }
+
+    
 }
 
 .upload {
@@ -52,7 +57,19 @@
     font-weight: bold;
 }
 
-
-.import-file {
-
+.list-title {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0 ;
 }
+
+.ant-table-row .charactor:hover .set-charactor {
+    border: 1px solid #e8e8e8 !important;
+    display: inline-block;
+    width: 100%;
+    border-radius: 4px;
+    padding: 2px 0 2px 10px ;
+    cursor: pointer;
+}
+
