@@ -13,7 +13,7 @@
     "electron-store": "^5.1.0",
     "getmac": "^1.5.0",
     "speakeasy": "^2.0.0",
-    "xlsx": "^0.15.2"
+    "xlsx": "^0.17.0"
   },
   "scripts": {
     "build": "react-app-rewired build",
